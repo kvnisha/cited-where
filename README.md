@@ -19,16 +19,63 @@ Works with Firefox, Chrome, Edge and Brave, for numbered and author–year citat
 
 ## Install
 
-**Firefox:** from Firefox Add-ons *(link coming once it's published)*.
+### Firefox (recommended: from the store)
 
-**Chrome, Edge, Brave (from source):**
-1. Download this repository (green **Code** button → **Download ZIP**) and unzip it.
-2. Go to `chrome://extensions` and turn on **Developer mode**.
-3. Click **Load unpacked** and select the `extension` folder.
+Install from **[Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/cited-where/)**.
+This is the easiest way: it's one click, stays installed, and updates automatically.
 
-**Firefox (from source, for testing):** go to `about:debugging#/runtime/this-firefox`,
-click **Load Temporary Add-on…** and select `extension/manifest.json`. Temporary add-ons
-are removed when Firefox restarts.
+### Chrome, Edge, Brave and other Chromium browsers
+
+1. Download this repository: click the green **Code** button at the top of this page,
+   then **Download ZIP**, and unzip it somewhere you'll keep it. The browser loads the
+   extension from that folder, so don't delete or move it afterwards.
+2. Open the extensions page: `chrome://extensions` (Chrome, Brave) or `edge://extensions` (Edge).
+3. Turn on **Developer mode** (a switch in the top-right corner; on the left in Edge).
+4. Click **Load unpacked** and select the `extension` folder inside the unzipped folder
+   (the one containing `manifest.json`, not the top-level folder).
+5. Optional: click the puzzle-piece icon in the toolbar and pin **Cited where?**.
+
+It stays installed after restarts. Chrome may remind you at startup that a
+developer-mode extension is installed; that's normal for extensions not from the
+Chrome Web Store.
+
+**Updating:** download the ZIP again, replace the old folder's contents with the new
+ones, and click the reload arrow on the extension's card in `chrome://extensions`.
+
+### Firefox from the downloaded files (without the store)
+
+Regular Firefox only installs extensions permanently if Mozilla has signed them, and
+signing happens through the store. Without the store you have two options.
+
+**Option A: temporary install (any Firefox, good for trying it out or testing changes)**
+
+1. Download and unzip this repository as in step 1 above.
+2. Open `about:debugging#/runtime/this-firefox` (type it into the address bar).
+3. Click **Load Temporary Add-on…** and select the `manifest.json` file inside the
+   `extension` folder.
+4. If arXiv PDFs don't open in the viewer, open `about:addons`, click **Cited where?**,
+   go to the **Permissions** tab and allow access to arxiv.org.
+
+Firefox removes temporary add-ons when it restarts, so you'll need to repeat step 3
+after each restart.
+
+**Option B: permanent install without signing (Firefox Developer Edition or Nightly only)**
+
+These Firefox versions can be told to accept unsigned extensions. Regular Firefox
+ignores this setting.
+
+1. Open `about:config`, accept the warning, search for `xpinstall.signatures.required`
+   and set it to **false** (double-click it).
+2. Open the `extension` folder, select **everything inside it**, and compress those files
+   into a ZIP (Windows: right-click → *Send to* → *Compressed (zipped) folder*;
+   macOS: right-click → *Compress*). `manifest.json` must be at the top level of the
+   ZIP, not inside a folder.
+3. Open `about:addons`, click the gear icon, choose **Install Add-on From File…**, and
+   select the ZIP.
+
+Note that turning off signature checks applies to all extensions in that Firefox
+profile, not just this one. If you later install the store version, remove this one first;
+both use the same extension ID.
 
 ## Use
 
@@ -58,14 +105,6 @@ paper loads, it reads the PDF's text and finds the bibliography:
   and discards the source.
 
 Section names come from the PDF's bookmarks.
-
-| File | What it does |
-| --- | --- |
-| `extension/manifest.json` | Extension name, version and permissions |
-| `extension/background.js` | Opens arXiv PDFs in the viewer; handles the toolbar button |
-| `extension/viewer.html`, `viewer.css`, `viewer.js` | The viewer, search and highlighting |
-| `extension/parser.js` | Reads LaTeX source (used for arXiv-ID lookups) |
-| `extension/lib/` | PDF.js 4.10.38, unmodified, from the `pdfjs-dist` npm package |
 
 ## Privacy
 
