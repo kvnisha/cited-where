@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Cited where? settings</title>
+  <style>
+    :root { --ink: #1d1d1f; --muted: #65666b; --bg: #ffffff; color-scheme: light; }
+    @media (prefers-color-scheme: dark) { :root { --ink: #ebe9e4; --muted: #a2a3a8; --bg: #1f2023; color-scheme: dark; } }
+    body { margin: 0; padding: 16px 20px; background: var(--bg); color: var(--ink); font: 14px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+    input { margin-top: 3px; }
+    p { margin: 4px 0 0 26px; color: var(--muted); }
+    #saved { margin-left: 26px; color: var(--muted); min-height: 1.5em; }
+  </style>
+</head>
+<body>
+  <label><input type="checkbox" id="autoOpen"> Open arXiv PDFs in Cited where? automatically</label>
+  <p>When this is off, PDFs open in the browser’s normal viewer. Click the Cited where? toolbar
+     button, or press Alt+Shift+C, when you want citation search.</p>
+  <div id="saved" role="status"></div>
+  <script src="options.js"></script>
+</body>
+</html>

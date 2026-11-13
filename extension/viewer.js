@@ -603,14 +603,32 @@ $('query').addEventListener('keydown', e => {
 $('nextBtn').addEventListener('click', () => (mode === 'text' ? submit(false) : goTo(cur + 1)));
 $('prevBtn').addEventListener('click', () => (mode === 'text' ? submit(true) : goTo(cur - 1)));
 $('zoomIn').addEventListener('click', () => viewer.increaseScale());
+$('settings').addEventListener('click', e => {
+  e.preventDefault();
+  (globalThis.browser ?? globalThis.chrome)?.runtime?.openOptionsPage?.();
+});
 $('zoomOut').addEventListener('click', () => viewer.decreaseScale());
 
+// Ctrl+F behaves like the browser's find: text search, as you type, over the whole PDF.
 window.addEventListener('keydown', e => {
-  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'f') {
+  const mod = e.ctrlKey || e.metaKey;
+  if (mod && e.key.toLowerCase() === 'f') {
     e.preventDefault();
+    if (mode !== 'text') setMode('text');
     $('query').focus();
     $('query').select();
+  } else if (e.key === 'F3' || (mod && e.key.toLowerCase() === 'g')) {
+    e.preventDefault();
+    if (mode === 'text' && $('query').value.trim()) submit(e.shiftKey);
   }
+});
+
+$('query').addEventListener('input', () => {
+  if (mode !== 'text' || !pdfDoc) return;
+  const q = $('query').value;
+  lastQuery = q;
+  if (q.trim()) textFind(q, false, false);
+  else { eventBus.dispatch('findbarclose', { source: window }); setStatus(''); }
 });
 
 $('idForm').addEventListener('submit', e => {
@@ -726,7 +744,7 @@ function openMenu(e, label, entryText, action) {
 
 container.addEventListener('contextmenu', e => {
   closeMenu();
-  if (!refs || mode !== 'cite') return;
+  if (!refs) return;
   const pos = charAtClick(e);
   if (pos == null || pos < refs.refStart || pos >= refs.refEnd) return; // normal browser menu elsewhere
 
@@ -736,6 +754,7 @@ container.addEventListener('contextmenu', e => {
     if (!entry) return;
     e.preventDefault();
     openMenu(e, `Find where [${entry.n}] is cited`, entry.text, () => {
+      if (mode !== 'cite') setMode('cite');
       clearChoices();
       $('query').value = String(entry.n);
       lastQuery = $('query').value;
@@ -749,6 +768,7 @@ container.addEventListener('contextmenu', e => {
   if (!q) return;
   e.preventDefault();
   openMenu(e, 'Find where this is cited', entry, () => {
+    if (mode !== 'cite') setMode('cite');
     clearChoices();
     $('query').value = q;
     lastQuery = q;

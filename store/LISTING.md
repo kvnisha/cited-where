@@ -9,7 +9,7 @@ Jump to every place a reference is cited in an arXiv paper. Type a citation numb
 ## Description
 Papers link from a citation to the bibliography, but not back. Cited where? does the reverse.
 
-Open any arXiv PDF and it loads in a built-in viewer (based on Mozilla's PDF.js) with a citation search box:
+Open an arXiv paper and click the toolbar button (or press Alt+Shift+C) to load it in a built-in viewer (based on Mozilla's PDF.js) with a citation search box:
 
 • Type a citation number like 118. It also finds it inside compressed ranges such as [115–120] and lists such as [112, 118], which Ctrl+F can't.
 • Type an author, as cited ("Louis et al. 2025") or as written in the bibliography ("Louis, T., et al. 2025").
@@ -50,12 +50,13 @@ The linter's eval/innerHTML warnings all come from these PDF.js files; the viewe
 PDF.js with isEvalSupported: false.
 
 How to test:
-1. Open https://arxiv.org/pdf/2503.14738 — it opens in the extension's viewer.
+1. Open https://arxiv.org/pdf/2503.14738 and click the toolbar button (or Alt+Shift+C).
 2. Type 118 in the search box and press Enter: it scrolls to the citation and highlights it.
    Press Enter again for the next place.
 3. Scroll to the references and right-click any entry → "Find where this is cited".
 
 Network access is limited to arxiv.org: the PDF (/pdf/) and, only when an arXiv ID can't be
 matched from the PDF, the LaTeX source (/e-print/). Nothing is stored or sent elsewhere.
-background.js only redirects arxiv.org/pdf/ tabs to the bundled viewer and handles the
-toolbar button.
+background.js handles the toolbar button and shortcut, and (only if enabled in the
+settings, off by default) redirects arxiv.org/pdf/ tabs to the bundled viewer.
+The storage permission holds that one setting.

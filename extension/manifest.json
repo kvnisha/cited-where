@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Cited where?",
-  "version": "0.4.0",
+  "version": "0.5.1",
   "description": "Jump to every place a reference is cited in an arXiv paper. Type a citation number, author or arXiv ID, or right-click an entry in the bibliography.",
   "icons": {
     "16": "icons/16.png",
@@ -10,7 +10,7 @@
     "128": "icons/128.png"
   },
   "action": {
-    "default_title": "Open this arXiv paper in Cited where?",
+    "default_title": "Open this arXiv paper in Cited where? (Alt+Shift+C)",
     "default_icon": {
       "16": "icons/16.png",
       "32": "icons/32.png"
@@ -23,7 +23,8 @@
     ]
   },
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "storage"
   ],
   "host_permissions": [
     "https://arxiv.org/*",
@@ -45,5 +46,17 @@
   },
   "content_security_policy": {
     "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+C"
+      },
+      "description": "Open this arXiv paper in Cited where?"
+    }
   }
 }
