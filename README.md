@@ -79,12 +79,24 @@ both use the same extension ID.
 
 ## Use
 
-- Open any arXiv PDF (`arxiv.org/pdf/…`). It opens in the Cited where? viewer
-  automatically. From an abstract or HTML page, click the toolbar icon.
-- Type in the search box and press Enter. Enter again goes to the next place,
-  Shift+Enter to the previous one.
+- Open an arXiv paper (PDF, abstract or HTML page) and click the **Cited where?** toolbar
+  button, or press **Alt+Shift+C**. The paper opens in the Cited where? viewer.
+  In Firefox the button may be inside the puzzle-piece menu at first; right-click it there and
+  choose *Pin to Toolbar*.
+- To open arXiv PDFs in the viewer automatically instead, turn it on under **Settings**
+  (a link in the viewer's toolbar, or the extension's options in `about:addons` /
+  `chrome://extensions`). It's off by default.
+- The shortcut can be changed: Firefox `about:addons` → gear → *Manage Extension Shortcuts*;
+  Chrome `chrome://extensions/shortcuts`.
+- With **Citation** selected, type a citation number, an author or an arXiv ID in the search
+  box and press Enter. Enter again goes to the next place, Shift+Enter to the previous one.
+- Or **right-click any entry in the bibliography** and choose *Find where this is cited*.
+  This works on any line of the entry and in either search mode; it switches to Citation
+  by itself.
 - If several references match, pick one from the list.
-- **Text** switches to ordinary text search; Ctrl+F (⌘F) jumps to the search box.
+- **Ctrl+F** (⌘F) works like the browser's find: it switches to **Text** search, finds as you
+  type, and highlights all matches across the whole PDF. Enter, F3 or Ctrl+G go to the next
+  match; add Shift for the previous one. Click **Citation** to go back to citation search.
 - **Abstract page** opens the arXiv abstract page in a new tab. Use it to save the paper
   with Zotero or other extensions, which browsers don't allow to work inside another
   extension's viewer.
@@ -124,9 +136,6 @@ See [PRIVACY.md](PRIVACY.md).
 
 Bug reports and suggestions are welcome: open an **Issue** with the arXiv ID of the paper
 and what you searched for. Pull requests are welcome too.
-
-To try a change, edit the files in `extension/` and reload the extension
-(`about:debugging` → **Reload** in Firefox, or the reload arrow on `chrome://extensions`).
 
 ## License
 
