@@ -1,0 +1,49 @@
+{
+  "manifest_version": 3,
+  "name": "Cited where?",
+  "version": "0.4.0",
+  "description": "Jump to every place a reference is cited in an arXiv paper. Type a citation number, author or arXiv ID, or right-click an entry in the bibliography.",
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "action": {
+    "default_title": "Open this arXiv paper in Cited where?",
+    "default_icon": {
+      "16": "icons/16.png",
+      "32": "icons/32.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js",
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "permissions": [
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://arxiv.org/*",
+    "https://export.arxiv.org/*"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{172ea588-6dd2-4caf-945f-465a4ca39d4e}",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    },
+    "gecko_android": {
+      "strict_min_version": "142.0"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
+}

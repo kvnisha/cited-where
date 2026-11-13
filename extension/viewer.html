@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Cited where?</title>
+  <link rel="stylesheet" href="lib/pdf_viewer.css">
+  <link rel="stylesheet" href="viewer.css">
+  <link rel="icon" href="icons/32.png">
+</head>
+<body>
+  <header id="toolbar">
+    <div class="row">
+      <div class="modes" role="radiogroup" aria-label="What to search for">
+        <button type="button" id="modeCite" role="radio" aria-checked="true" class="on">Citation</button>
+        <button type="button" id="modeText" role="radio" aria-checked="false">Text</button>
+      </div>
+      <input id="query" type="search" autocomplete="off" spellcheck="false"
+             placeholder="Citation number, author or arXiv ID" aria-label="Search">
+      <button type="button" id="prevBtn" class="nav" aria-label="Previous place" title="Previous (Shift+Enter)" disabled>‹</button>
+      <button type="button" id="nextBtn" class="nav" aria-label="Next place" title="Next (Enter)" disabled>›</button>
+      <p id="status" role="status"></p>
+      <div class="spacer"></div>
+      <button type="button" id="zoomOut" class="nav" aria-label="Zoom out">−</button>
+      <button type="button" id="zoomIn" class="nav" aria-label="Zoom in">+</button>
+      <a id="abstract" class="quiet" href="#" target="_blank" rel="noopener" title="Open the arXiv abstract page in a new tab, e.g. to save the paper to Zotero">Abstract page</a>
+      <a id="original" class="quiet" href="#" title="Open in the browser’s own PDF viewer">Original PDF</a>
+    </div>
+    <div id="refLine" hidden></div>
+    <ol id="choices" hidden></ol>
+    <form id="idForm" class="row" hidden>
+      <input id="idInput" type="text" placeholder="arXiv ID or link, e.g. 2503.14738" spellcheck="false" aria-label="arXiv ID">
+      <button type="submit">Open paper</button>
+    </form>
+  </header>
+
+  <div id="viewerContainer" tabindex="0">
+    <div id="viewer" class="pdfViewer"></div>
+  </div>
+
+  <script src="parser.js"></script>
+  <script type="module" src="viewer.js"></script>
+</body>
+</html>

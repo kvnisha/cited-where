@@ -1,0 +1,114 @@
+:root {
+  --bar: #ffffff;
+  --ink: #1d1d1f;
+  --muted: #65666b;
+  --rule: #dddbd6;
+  --red: #b31b1b;
+  --desk: #e9e7e2;          /* behind the pages */
+  --hover: #f4f2ed;
+  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, "Iowan Old Style", Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --bar-h: 48px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bar: #1f2023;
+    --ink: #ebe9e4;
+    --muted: #a2a3a8;
+    --rule: #3a3b40;
+    --red: #ff7b72;
+    --desk: #2b2c30;
+    --hover: #2a2b2f;
+    color-scheme: dark;
+  }
+}
+
+#toolbar, #toolbar *, .cw-menu, .cw-menu * { box-sizing: border-box; } /* not the PDF pages: PDF.js sizes them itself */
+[hidden] { display: none !important; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--desk); color: var(--ink); font: 13px/1.4 var(--sans); }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+#toolbar {
+  position: fixed; inset: 0 0 auto 0; z-index: 10;
+  background: var(--bar);
+  border-bottom: 1px solid var(--rule);
+}
+.row { display: flex; align-items: center; gap: 8px; padding: 8px 12px; min-height: var(--bar-h); }
+.spacer { flex: 1; }
+
+.modes { flex-shrink: 0; display: flex; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+.modes button { border: 0; border-radius: 0; padding: 5px 10px; background: transparent; color: var(--muted); cursor: pointer; }
+.modes button.on { background: var(--ink); color: var(--bar); }
+
+#query, #idInput {
+  flex-shrink: 1; min-width: 160px;
+  width: 300px; padding: 6px 9px;
+  border: 1px solid var(--rule); border-radius: 6px; background: var(--bar);
+}
+#query:focus-visible, #idInput:focus-visible { outline: none; border-color: var(--red); }
+
+button { padding: 5px 10px; border: 1px solid var(--rule); border-radius: 6px; background: var(--bar); cursor: pointer; }
+button:hover:not(:disabled) { background: var(--hover); }
+button:disabled { opacity: .4; cursor: default; }
+button.nav { min-width: 30px; padding: 4px 8px; font-size: 15px; line-height: 1; }
+
+#status { flex: 0 1 auto; min-width: 0; margin: 0 0 0 4px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 46vw; }
+#status.error { color: var(--red); }
+#status b { color: var(--ink); font-weight: 600; }
+
+a.quiet { color: var(--muted); text-decoration: none; margin-left: 6px; white-space: nowrap; }
+a.quiet:hover { color: var(--red); text-decoration: underline; }
+
+#refLine {
+  padding: 0 12px 9px;
+  font: 14px/1.45 var(--serif);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+#choices {
+  list-style: none; margin: 0; padding: 0 12px 10px;
+  max-height: 40vh; overflow-y: auto;
+}
+#choices li {
+  padding: 6px 8px; border-top: 1px solid var(--rule);
+  font: 14px/1.4 var(--serif); cursor: pointer;
+}
+#choices li:hover, #choices li:focus-visible { background: var(--hover); }
+#choices .n { font-family: var(--sans); font-weight: 600; margin-right: 6px; }
+
+#viewerContainer {
+  position: absolute; inset: var(--bar-h) 0 0 0;
+  overflow: auto;
+}
+#viewerContainer:focus { outline: none; }
+
+/* The temporary highlight drawn on top of the page */
+.cw-layer { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+.cw-layer div { position: absolute; border-radius: 2px; mix-blend-mode: multiply; transition: opacity .6s ease; }
+.cw-layer .sentence { background: rgba(255, 221, 64, .45); }
+.cw-layer .mark { background: rgba(255, 150, 0, .5); box-shadow: 0 0 0 1.5px rgba(214, 90, 0, .9); }
+.cw-layer.fade div { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .cw-layer div { transition: none; } }
+
+/* Right-click menu on the reference list */
+.cw-menu {
+  position: fixed; z-index: 50; min-width: 220px; padding: 4px;
+  background: var(--bar); color: var(--ink);
+  border: 1px solid var(--rule); border-radius: 8px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .18);
+  font: 13px/1.4 var(--sans);
+}
+.cw-menu button {
+  display: block; width: 100%; text-align: left; border: 0; border-radius: 5px;
+  padding: 7px 10px; background: transparent;
+}
+.cw-menu button:hover, .cw-menu button:focus-visible { background: var(--hover); outline: none; }
+.cw-menu .entry {
+  padding: 4px 10px 6px; max-width: 360px; color: var(--muted);
+  font: 12px/1.4 var(--serif);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+button, a.quiet { flex-shrink: 0; }
